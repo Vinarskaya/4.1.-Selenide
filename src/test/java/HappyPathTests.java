@@ -112,7 +112,7 @@ public class HappyPathTests {
     }
 
     @Test
-    void shouldNotMakeReservationIfШтсщккусеDate() { //поле даты заполнено некорректно
+    void shouldNotMakeReservationIfIncorrectDate() { //поле даты заполнено некорректно
         $("[data-test-id=city] input").setValue("Москва");
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);
         $("[data-test-id=date] input").setValue("06.10.2021");
@@ -124,7 +124,7 @@ public class HappyPathTests {
     }
 
     @Test
-    void shouldNotMakeReservationIfIncorrectName() { //поле имени заполнено ytrjhhtrnyj
+    void shouldNotMakeReservationIfIncorrectName() { //поле имени заполнено некорректно
         String date = generateDate(3);
         $("[data-test-id=city] input").setValue("Москва");
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);
