@@ -6,12 +6,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class HappyPathTests {
+public class Tests {
 
     String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -147,5 +146,20 @@ public class HappyPathTests {
         $("[data-test-id=agreement]").click();
         $(".button").click();
         $("[data-test-id=phone] .input__sub").shouldHave(text("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+    }
+
+    @Test
+    void shouldMakeReservationWithHelpCity() { //форма заполнена соответственно требованиям с помощью выпадающего списка городов
+        String date = generateDate(3);
+        $("[data-test-id=city] input").setValue("Мо");
+        $$(".menu-item__control").find(exactText("Москва")).click();
+        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);
+        $("[data-test-id=date] input").setValue(date);
+        $("[data-test-id=name] input").setValue("Иванов Иван");
+        $("[data-test-id=phone] input").setValue("+79999999999");
+        $("[data-test-id=agreement]").click();
+        $(".button").click();
+        $(byText("Успешно!")).shouldBe(visible, Duration.ofMillis(15000));
+        $(".notification__content").shouldHave(text(date));
     }
 }
