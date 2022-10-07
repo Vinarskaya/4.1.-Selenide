@@ -19,7 +19,7 @@ public class HappyPathTests {
 
     @BeforeEach
     void setup() {
-        open("http://localhost:9999");
+        open("http://localhost:9999/");
     }
 
     @Test
@@ -137,7 +137,7 @@ public class HappyPathTests {
     }
 
     @Test
-    void shouldNotMakeReservationIncorrectNoPhone() { //поле ном телефона заполнено некорректно
+    void shouldNotMakeReservationIncorrectPhone() { //поле ном телефона заполнено некорректно
         String date = generateDate(3);
         $("[data-test-id=city] input").setValue("Москва");
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);
